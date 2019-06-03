@@ -1,0 +1,471 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.daichao.dao.product.DcThirdProductMapper">
+  <resultMap id="BaseResultMap" type="com.daichao.bean.product.DcThirdProduct">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="amount_limit_min" jdbcType="DECIMAL" property="amountLimitMin" />
+    <result column="amount_limit_max" jdbcType="DECIMAL" property="amountLimitMax" />
+    <result column="effect_time" jdbcType="TIMESTAMP" property="effectTime" />
+    <result column="tag_id" jdbcType="VARCHAR" property="tagId" />
+    <result column="icon_url" jdbcType="VARCHAR" property="iconUrl" />
+    <result column="link_url" jdbcType="VARCHAR" property="linkUrl" />
+    <result column="rate" jdbcType="VARCHAR" property="rate" />
+    <result column="time_limit" jdbcType="VARCHAR" property="timeLimit" />
+    <result column="lending_time" jdbcType="VARCHAR" property="lendingTime" />
+    <result column="repay_style" jdbcType="VARCHAR" property="repayStyle" />
+    <result column="aptitude" jdbcType="VARCHAR" property="aptitude" />
+    <result column="material" jdbcType="VARCHAR" property="material" />
+    <result column="lending_success_count" jdbcType="INTEGER" property="lendingSuccessCount" />
+    <result column="success_rate" jdbcType="VARCHAR" property="successRate" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="description" jdbcType="VARCHAR" property="description" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="sort" jdbcType="INTEGER" property="sort" />
+    <result column="price_type" jdbcType="INTEGER" property="priceType" />
+    <result column="price_model" jdbcType="INTEGER" property="priceModel" />
+    <result column="price" jdbcType="DECIMAL" property="price" />
+    <result column="uv6_privce" jdbcType="DECIMAL" property="uv6Privce" />
+    <result column="amount" jdbcType="DECIMAL" property="amount" />
+    <result column="recharge_amount" jdbcType="DECIMAL" property="rechargeAmount" />
+    <result column="product_user" jdbcType="VARCHAR" property="productUser" />
+    <result column="create_id" jdbcType="INTEGER" property="createId" />
+    <result column="update_id" jdbcType="INTEGER" property="updateId" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="customer_service_phone" jdbcType="VARCHAR" property="customerServicePhone" />
+    <result column="cd" jdbcType="VARCHAR" property="cd" />
+    <result column="suffix" jdbcType="VARCHAR" property="suffix" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, name, amount_limit_min, amount_limit_max, effect_time, tag_id, icon_url, link_url, 
+    rate, time_limit, lending_time, repay_style, aptitude, material, lending_success_count, 
+    success_rate, status, description, remark, sort, price_type, price_model, price, 
+    uv6_privce, amount, recharge_amount, product_user, create_id, update_id, create_time, 
+    update_time, customer_service_phone, cd, suffix
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from dc_third_product
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from dc_third_product
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.daichao.bean.product.DcThirdProduct">
+    insert into dc_third_product (id, name, amount_limit_min, 
+      amount_limit_max, effect_time, tag_id, 
+      icon_url, link_url, rate, 
+      time_limit, lending_time, repay_style, 
+      aptitude, material, lending_success_count, 
+      success_rate, status, description, 
+      remark, sort, price_type, 
+      price_model, price, uv6_privce, 
+      amount, recharge_amount, product_user, 
+      create_id, update_id, create_time, 
+      update_time, customer_service_phone, cd, 
+      suffix)
+    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{amountLimitMin,jdbcType=DECIMAL}, 
+      #{amountLimitMax,jdbcType=DECIMAL}, #{effectTime,jdbcType=TIMESTAMP}, #{tagId,jdbcType=VARCHAR}, 
+      #{iconUrl,jdbcType=VARCHAR}, #{linkUrl,jdbcType=VARCHAR}, #{rate,jdbcType=VARCHAR}, 
+      #{timeLimit,jdbcType=VARCHAR}, #{lendingTime,jdbcType=VARCHAR}, #{repayStyle,jdbcType=VARCHAR}, 
+      #{aptitude,jdbcType=VARCHAR}, #{material,jdbcType=VARCHAR}, #{lendingSuccessCount,jdbcType=INTEGER}, 
+      #{successRate,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, #{description,jdbcType=VARCHAR}, 
+      #{remark,jdbcType=VARCHAR}, #{sort,jdbcType=INTEGER}, #{priceType,jdbcType=INTEGER}, 
+      #{priceModel,jdbcType=INTEGER}, #{price,jdbcType=DECIMAL}, #{uv6Privce,jdbcType=DECIMAL}, 
+      #{amount,jdbcType=DECIMAL}, #{rechargeAmount,jdbcType=DECIMAL}, #{productUser,jdbcType=VARCHAR}, 
+      #{createId,jdbcType=INTEGER}, #{updateId,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updateTime,jdbcType=TIMESTAMP}, #{customerServicePhone,jdbcType=VARCHAR}, #{cd,jdbcType=VARCHAR}, 
+      #{suffix,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.daichao.bean.product.DcThirdProduct" useGeneratedKeys="true" keyProperty="id">
+    insert into dc_third_product
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="amountLimitMin != null">
+        amount_limit_min,
+      </if>
+      <if test="amountLimitMax != null">
+        amount_limit_max,
+      </if>
+      <if test="effectTime != null">
+        effect_time,
+      </if>
+      <if test="tagId != null">
+        tag_id,
+      </if>
+      <if test="iconUrl != null">
+        icon_url,
+      </if>
+      <if test="linkUrl != null">
+        link_url,
+      </if>
+      <if test="rate != null">
+        rate,
+      </if>
+      <if test="timeLimit != null">
+        time_limit,
+      </if>
+      <if test="lendingTime != null">
+        lending_time,
+      </if>
+      <if test="repayStyle != null">
+        repay_style,
+      </if>
+      <if test="aptitude != null">
+        aptitude,
+      </if>
+      <if test="material != null">
+        material,
+      </if>
+      <if test="lendingSuccessCount != null">
+        lending_success_count,
+      </if>
+      <if test="successRate != null">
+        success_rate,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="description != null">
+        description,
+      </if>
+      <if test="remark != null">
+        remark,
+      </if>
+      <if test="sort != null">
+        sort,
+      </if>
+      <if test="priceType != null">
+        price_type,
+      </if>
+      <if test="priceModel != null">
+        price_model,
+      </if>
+      <if test="price != null">
+        price,
+      </if>
+      <if test="uv6Privce != null">
+        uv6_privce,
+      </if>
+      <if test="amount != null">
+        amount,
+      </if>
+      <if test="rechargeAmount != null">
+        recharge_amount,
+      </if>
+      <if test="productUser != null">
+        product_user,
+      </if>
+      <if test="createId != null">
+        create_id,
+      </if>
+      <if test="updateId != null">
+        update_id,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="customerServicePhone != null">
+        customer_service_phone,
+      </if>
+      <if test="cd != null">
+        cd,
+      </if>
+      <if test="suffix != null">
+        suffix,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="amountLimitMin != null">
+        #{amountLimitMin,jdbcType=DECIMAL},
+      </if>
+      <if test="amountLimitMax != null">
+        #{amountLimitMax,jdbcType=DECIMAL},
+      </if>
+      <if test="effectTime != null">
+        #{effectTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="tagId != null">
+        #{tagId,jdbcType=VARCHAR},
+      </if>
+      <if test="iconUrl != null">
+        #{iconUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="linkUrl != null">
+        #{linkUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="rate != null">
+        #{rate,jdbcType=VARCHAR},
+      </if>
+      <if test="timeLimit != null">
+        #{timeLimit,jdbcType=VARCHAR},
+      </if>
+      <if test="lendingTime != null">
+        #{lendingTime,jdbcType=VARCHAR},
+      </if>
+      <if test="repayStyle != null">
+        #{repayStyle,jdbcType=VARCHAR},
+      </if>
+      <if test="aptitude != null">
+        #{aptitude,jdbcType=VARCHAR},
+      </if>
+      <if test="material != null">
+        #{material,jdbcType=VARCHAR},
+      </if>
+      <if test="lendingSuccessCount != null">
+        #{lendingSuccessCount,jdbcType=INTEGER},
+      </if>
+      <if test="successRate != null">
+        #{successRate,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="description != null">
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="sort != null">
+        #{sort,jdbcType=INTEGER},
+      </if>
+      <if test="priceType != null">
+        #{priceType,jdbcType=INTEGER},
+      </if>
+      <if test="priceModel != null">
+        #{priceModel,jdbcType=INTEGER},
+      </if>
+      <if test="price != null">
+        #{price,jdbcType=DECIMAL},
+      </if>
+      <if test="uv6Privce != null">
+        #{uv6Privce,jdbcType=DECIMAL},
+      </if>
+      <if test="amount != null">
+        #{amount,jdbcType=DECIMAL},
+      </if>
+      <if test="rechargeAmount != null">
+        #{rechargeAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="productUser != null">
+        #{productUser,jdbcType=VARCHAR},
+      </if>
+      <if test="createId != null">
+        #{createId,jdbcType=INTEGER},
+      </if>
+      <if test="updateId != null">
+        #{updateId,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="customerServicePhone != null">
+        #{customerServicePhone,jdbcType=VARCHAR},
+      </if>
+      <if test="cd != null">
+        #{cd,jdbcType=VARCHAR},
+      </if>
+      <if test="suffix != null">
+        #{suffix,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.daichao.bean.product.DcThirdProduct">
+    update dc_third_product
+    <set>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="amountLimitMin != null">
+        amount_limit_min = #{amountLimitMin,jdbcType=DECIMAL},
+      </if>
+      <if test="amountLimitMax != null">
+        amount_limit_max = #{amountLimitMax,jdbcType=DECIMAL},
+      </if>
+      <if test="effectTime != null">
+        effect_time = #{effectTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="tagId != null">
+        tag_id = #{tagId,jdbcType=VARCHAR},
+      </if>
+      <if test="iconUrl != null">
+        icon_url = #{iconUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="linkUrl != null">
+        link_url = #{linkUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="rate != null">
+        rate = #{rate,jdbcType=VARCHAR},
+      </if>
+      <if test="timeLimit != null">
+        time_limit = #{timeLimit,jdbcType=VARCHAR},
+      </if>
+      <if test="lendingTime != null">
+        lending_time = #{lendingTime,jdbcType=VARCHAR},
+      </if>
+      <if test="repayStyle != null">
+        repay_style = #{repayStyle,jdbcType=VARCHAR},
+      </if>
+      <if test="aptitude != null">
+        aptitude = #{aptitude,jdbcType=VARCHAR},
+      </if>
+      <if test="material != null">
+        material = #{material,jdbcType=VARCHAR},
+      </if>
+      <if test="lendingSuccessCount != null">
+        lending_success_count = #{lendingSuccessCount,jdbcType=INTEGER},
+      </if>
+      <if test="successRate != null">
+        success_rate = #{successRate,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="description != null">
+        description = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null">
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="sort != null">
+        sort = #{sort,jdbcType=INTEGER},
+      </if>
+      <if test="priceType != null">
+        price_type = #{priceType,jdbcType=INTEGER},
+      </if>
+      <if test="priceModel != null">
+        price_model = #{priceModel,jdbcType=INTEGER},
+      </if>
+      <if test="price != null">
+        price = #{price,jdbcType=DECIMAL},
+      </if>
+      <if test="uv6Privce != null">
+        uv6_privce = #{uv6Privce,jdbcType=DECIMAL},
+      </if>
+      <if test="amount != null">
+        amount = #{amount,jdbcType=DECIMAL},
+      </if>
+      <if test="rechargeAmount != null">
+        recharge_amount = #{rechargeAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="productUser != null">
+        product_user = #{productUser,jdbcType=VARCHAR},
+      </if>
+      <if test="createId != null">
+        create_id = #{createId,jdbcType=INTEGER},
+      </if>
+      <if test="updateId != null">
+        update_id = #{updateId,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="customerServicePhone != null">
+        customer_service_phone = #{customerServicePhone,jdbcType=VARCHAR},
+      </if>
+      <if test="cd != null">
+        cd = #{cd,jdbcType=VARCHAR},
+      </if>
+      <if test="suffix != null">
+        suffix = #{suffix,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.daichao.bean.product.DcThirdProduct">
+    update dc_third_product
+    set name = #{name,jdbcType=VARCHAR},
+      amount_limit_min = #{amountLimitMin,jdbcType=DECIMAL},
+      amount_limit_max = #{amountLimitMax,jdbcType=DECIMAL},
+      effect_time = #{effectTime,jdbcType=TIMESTAMP},
+      tag_id = #{tagId,jdbcType=VARCHAR},
+      icon_url = #{iconUrl,jdbcType=VARCHAR},
+      link_url = #{linkUrl,jdbcType=VARCHAR},
+      rate = #{rate,jdbcType=VARCHAR},
+      time_limit = #{timeLimit,jdbcType=VARCHAR},
+      lending_time = #{lendingTime,jdbcType=VARCHAR},
+      repay_style = #{repayStyle,jdbcType=VARCHAR},
+      aptitude = #{aptitude,jdbcType=VARCHAR},
+      material = #{material,jdbcType=VARCHAR},
+      lending_success_count = #{lendingSuccessCount,jdbcType=INTEGER},
+      success_rate = #{successRate,jdbcType=VARCHAR},
+      status = #{status,jdbcType=INTEGER},
+      description = #{description,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR},
+      sort = #{sort,jdbcType=INTEGER},
+      price_type = #{priceType,jdbcType=INTEGER},
+      price_model = #{priceModel,jdbcType=INTEGER},
+      price = #{price,jdbcType=DECIMAL},
+      uv6_privce = #{uv6Privce,jdbcType=DECIMAL},
+      amount = #{amount,jdbcType=DECIMAL},
+      recharge_amount = #{rechargeAmount,jdbcType=DECIMAL},
+      product_user = #{productUser,jdbcType=VARCHAR},
+      create_id = #{createId,jdbcType=INTEGER},
+      update_id = #{updateId,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      customer_service_phone = #{customerServicePhone,jdbcType=VARCHAR},
+      cd = #{cd,jdbcType=VARCHAR},
+      suffix = #{suffix,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="queryProductList" parameterType="map" resultMap="BaseResultMap">
+     select * from dc_third_product where 1=1
+     <if test="name!=null">
+        and binary name like concat('%', #{name},'%')
+     </if>
+     <if test="status!=null">
+        and status=#{status}
+     </if>
+    <if test="productIds!=null">
+      and FIND_IN_SET(id ,(#{productIds,jdbcType=VARCHAR}))
+    </if>
+     order by sort desc,status desc,create_time desc
+  </select>
+  <update id="updateProductAmountAndRechargeAmount" parameterType="map" >
+    update dc_third_product set amount=amount+#{amount} ,recharge_amount=recharge_amount+#{amount} where id=#{productId}
+  </update>
+  <select id="selectThirdProduct" resultMap="BaseResultMap">
+    select * from dc_third_product where status = 1
+    order by sort desc,create_time desc limit 0,12
+  </select>
+  <select id="queryProductListBySort" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select * from dc_third_product where 1=1
+    <if test="sort!=null">
+      and sort=#{sort} 
+    </if> 
+  </select>
+  <select id="getAdvertProduct" parameterType="java.lang.Integer" resultType="com.daichao.bean.product.DcThirdProduct">
+     select a.* from dc_third_product a inner join dc_advert b on a.id=b.product_id where  b.status=1 and a.status=1
+     <if test="location!=null">
+        and b.location=#{location} 
+     </if> 
+  </select>
+  <select id="getAdvertOtherProduct" parameterType="java.lang.Integer" resultType="com.daichao.bean.product.DcThirdProduct">
+     select * from dc_third_product  where status=1 and id not in(select product_id from dc_advert where status=1 and location=#{location})
+  </select>
+</mapper>

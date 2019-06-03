@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.daichao.dao.user.DcRegistStatisticsMapper">
+  <resultMap id="BaseResultMap" type="com.daichao.bean.user.DcRegistStatistics">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="channel_id" jdbcType="INTEGER" property="channelId" />
+    <result column="channel_code" jdbcType="VARCHAR" property="channelCode" />
+    <result column="channel_name" jdbcType="VARCHAR" property="channelName" />
+    <result column="regist_count" jdbcType="INTEGER" property="registCount" />
+    <result column="regist_deduction_count" jdbcType="DOUBLE" property="registDeductionCount" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, channel_id, channel_code, channel_name, regist_count, regist_deduction_count, 
+    create_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from dc_regist_statistics
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+    <select id="selectRecord" resultType="com.daichao.bean.user.DcRegistStatistics">
+      select
+      <include refid="Base_Column_List" />
+      from dc_regist_statistics where channel_code = #{channelCode,jdbcType=INTEGER}
+      and  DATE_FORMAT(create_time,'%Y-%m-%D')=DATE_FORMAT(CURDATE(),'%Y-%m-%D')
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from dc_regist_statistics
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.daichao.bean.user.DcRegistStatistics">
+    insert into dc_regist_statistics (id, channel_id, channel_code, 
+      channel_name, regist_count, regist_deduction_count, 
+      create_time)
+    values (#{id,jdbcType=INTEGER}, #{channelId,jdbcType=INTEGER}, #{channelCode,jdbcType=VARCHAR}, 
+      #{channelName,jdbcType=VARCHAR}, #{registCount,jdbcType=INTEGER}, #{registDeductionCount,jdbcType=DOUBLE}, 
+      #{createTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.daichao.bean.user.DcRegistStatistics">
+    insert into dc_regist_statistics
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="channelId != null">
+        channel_id,
+      </if>
+      <if test="channelCode != null">
+        channel_code,
+      </if>
+      <if test="channelName != null">
+        channel_name,
+      </if>
+      <if test="registCount != null">
+        regist_count,
+      </if>
+      <if test="registDeductionCount != null">
+        regist_deduction_count,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="channelId != null">
+        #{channelId,jdbcType=INTEGER},
+      </if>
+      <if test="channelCode != null">
+        #{channelCode,jdbcType=VARCHAR},
+      </if>
+      <if test="channelName != null">
+        #{channelName,jdbcType=VARCHAR},
+      </if>
+      <if test="registCount != null">
+        #{registCount,jdbcType=INTEGER},
+      </if>
+      <if test="registDeductionCount != null">
+        #{registDeductionCount,jdbcType=DOUBLE},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.daichao.bean.user.DcRegistStatistics">
+    update dc_regist_statistics
+    <set>
+      <if test="channelId != null">
+        channel_id = #{channelId,jdbcType=INTEGER},
+      </if>
+      <if test="channelCode != null">
+        channel_code = #{channelCode,jdbcType=VARCHAR},
+      </if>
+      <if test="channelName != null">
+        channel_name = #{channelName,jdbcType=VARCHAR},
+      </if>
+      <if test="registCount != null">
+        regist_count = #{registCount,jdbcType=INTEGER},
+      </if>
+      <if test="registDeductionCount != null">
+        regist_deduction_count = #{registDeductionCount,jdbcType=DOUBLE},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.daichao.bean.user.DcRegistStatistics">
+    update dc_regist_statistics
+    set channel_id = #{channelId,jdbcType=INTEGER},
+      channel_code = #{channelCode,jdbcType=VARCHAR},
+      channel_name = #{channelName,jdbcType=VARCHAR},
+      regist_count = #{registCount,jdbcType=INTEGER},
+      regist_deduction_count = #{registDeductionCount,jdbcType=DOUBLE},
+      create_time = #{createTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="queryRegistStatisticsList" parameterType="String" resultType="com.daichao.bean.user.DcRegistStatistics">
+     select * from dc_regist_statistics where 1=1
+     <if test="code!=null">
+       and binary channel_code =#{code}
+     </if>
+     <if test="startTime!=null">
+           and create_time>=#{startTime}
+     </if>
+     <if test="endTime!=null">
+        and create_time &lt;=#{endTime}
+     </if>
+     order by create_time desc
+  </select>
+  <select id="queryCountByChannelCodeAndCreatTime" parameterType="map" resultType="com.daichao.bean.user.DcRegistStatistics">
+    select a.*,b.price as channelPrice from dc_regist_statistics a inner join dc_channel b on a.channel_code=b.code where b.code=#{code} and a.create_time>=#{startTime} and a.create_time &lt;=#{endTime}
+    
+  </select>
+  <update id="updateRegistStatisticsRegistCount" parameterType="map">
+    update dc_regist_statistics set regist_count=regist_count+1,regist_deduction_count=regist_deduction_count+#{registDeductionCount} where id=#{id}
+  </update>
+</mapper>

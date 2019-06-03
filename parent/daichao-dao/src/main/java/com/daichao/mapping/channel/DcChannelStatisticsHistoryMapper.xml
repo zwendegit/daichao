@@ -1,0 +1,273 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.daichao.dao.channel.DcChannelStatisticsHistoryMapper">
+  <resultMap id="BaseResultMap" type="com.daichao.bean.channel.DcChannelStatisticsHistory">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="code" jdbcType="VARCHAR" property="code" />
+    <result column="code_name" jdbcType="VARCHAR" property="codeName" />
+    <result column="channel_uv_count" jdbcType="INTEGER" property="channelUvCount" />
+    <result column="regist_count_day" jdbcType="INTEGER" property="registCountDay" />
+    <result column="login_count_day" jdbcType="INTEGER" property="loginCountDay" />
+    <result column="regist_login_count_day" jdbcType="INTEGER" property="registLoginCountDay" />
+    <result column="uv_sum_day" jdbcType="INTEGER" property="uvSumDay" />
+    <result column="money_sum" jdbcType="DECIMAL" property="moneySum" />
+    <result column="zc_money" jdbcType="DECIMAL" property="zcMoney" />
+    <result column="js_price" jdbcType="DECIMAL" property="jsPrice" />
+    <result column="threshold" jdbcType="INTEGER" property="threshold" />
+    <result column="deduction_rate" jdbcType="DECIMAL" property="deductionRate" />
+    <result column="regist_count" jdbcType="INTEGER" property="registCount" />
+    <result column="regist_deduction_count" jdbcType="INTEGER" property="registDeductionCount" />
+    <result column="roi" jdbcType="DECIMAL" property="roi" />
+    <result column="channel_price" jdbcType="DECIMAL" property="channelPrice" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, code, code_name, channel_uv_count, regist_count_day, login_count_day, regist_login_count_day, 
+    uv_sum_day, money_sum, zc_money, js_price, threshold, deduction_rate, regist_count, 
+    regist_deduction_count, roi, channel_price, create_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from dc_channel_statistics_history
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from dc_channel_statistics_history
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.daichao.bean.channel.DcChannelStatisticsHistory">
+    insert into dc_channel_statistics_history (id, code, code_name, 
+      channel_uv_count, regist_count_day, login_count_day, 
+      regist_login_count_day, uv_sum_day, money_sum, 
+      zc_money, js_price, threshold, 
+      deduction_rate, regist_count, regist_deduction_count, 
+      roi, channel_price, create_time
+      )
+    values (#{id,jdbcType=INTEGER}, #{code,jdbcType=VARCHAR}, #{codeName,jdbcType=VARCHAR}, 
+      #{channelUvCount,jdbcType=INTEGER}, #{registCountDay,jdbcType=INTEGER}, #{loginCountDay,jdbcType=INTEGER}, 
+      #{registLoginCountDay,jdbcType=INTEGER}, #{uvSumDay,jdbcType=INTEGER}, #{moneySum,jdbcType=DECIMAL}, 
+      #{zcMoney,jdbcType=DECIMAL}, #{jsPrice,jdbcType=DECIMAL}, #{threshold,jdbcType=INTEGER}, 
+      #{deductionRate,jdbcType=DECIMAL}, #{registCount,jdbcType=INTEGER}, #{registDeductionCount,jdbcType=INTEGER}, 
+      #{roi,jdbcType=DECIMAL}, #{channelPrice,jdbcType=DECIMAL}, #{createTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.daichao.bean.channel.DcChannelStatisticsHistory">
+    insert into dc_channel_statistics_history
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="code != null">
+        code,
+      </if>
+      <if test="codeName != null">
+        code_name,
+      </if>
+      <if test="channelUvCount != null">
+        channel_uv_count,
+      </if>
+      <if test="registCountDay != null">
+        regist_count_day,
+      </if>
+      <if test="loginCountDay != null">
+        login_count_day,
+      </if>
+      <if test="registLoginCountDay != null">
+        regist_login_count_day,
+      </if>
+      <if test="uvSumDay != null">
+        uv_sum_day,
+      </if>
+      <if test="moneySum != null">
+        money_sum,
+      </if>
+      <if test="zcMoney != null">
+        zc_money,
+      </if>
+      <if test="jsPrice != null">
+        js_price,
+      </if>
+      <if test="threshold != null">
+        threshold,
+      </if>
+      <if test="deductionRate != null">
+        deduction_rate,
+      </if>
+      <if test="registCount != null">
+        regist_count,
+      </if>
+      <if test="registDeductionCount != null">
+        regist_deduction_count,
+      </if>
+      <if test="roi != null">
+        roi,
+      </if>
+      <if test="channelPrice != null">
+        channel_price,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="code != null">
+        #{code,jdbcType=VARCHAR},
+      </if>
+      <if test="codeName != null">
+        #{codeName,jdbcType=VARCHAR},
+      </if>
+      <if test="channelUvCount != null">
+        #{channelUvCount,jdbcType=INTEGER},
+      </if>
+      <if test="registCountDay != null">
+        #{registCountDay,jdbcType=INTEGER},
+      </if>
+      <if test="loginCountDay != null">
+        #{loginCountDay,jdbcType=INTEGER},
+      </if>
+      <if test="registLoginCountDay != null">
+        #{registLoginCountDay,jdbcType=INTEGER},
+      </if>
+      <if test="uvSumDay != null">
+        #{uvSumDay,jdbcType=INTEGER},
+      </if>
+      <if test="moneySum != null">
+        #{moneySum,jdbcType=DECIMAL},
+      </if>
+      <if test="zcMoney != null">
+        #{zcMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="jsPrice != null">
+        #{jsPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="threshold != null">
+        #{threshold,jdbcType=INTEGER},
+      </if>
+      <if test="deductionRate != null">
+        #{deductionRate,jdbcType=DECIMAL},
+      </if>
+      <if test="registCount != null">
+        #{registCount,jdbcType=INTEGER},
+      </if>
+      <if test="registDeductionCount != null">
+        #{registDeductionCount,jdbcType=INTEGER},
+      </if>
+      <if test="roi != null">
+        #{roi,jdbcType=DECIMAL},
+      </if>
+      <if test="channelPrice != null">
+        #{channelPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.daichao.bean.channel.DcChannelStatisticsHistory">
+    update dc_channel_statistics_history
+    <set>
+      <if test="code != null">
+        code = #{code,jdbcType=VARCHAR},
+      </if>
+      <if test="codeName != null">
+        code_name = #{codeName,jdbcType=VARCHAR},
+      </if>
+      <if test="channelUvCount != null">
+        channel_uv_count = #{channelUvCount,jdbcType=INTEGER},
+      </if>
+      <if test="registCountDay != null">
+        regist_count_day = #{registCountDay,jdbcType=INTEGER},
+      </if>
+      <if test="loginCountDay != null">
+        login_count_day = #{loginCountDay,jdbcType=INTEGER},
+      </if>
+      <if test="registLoginCountDay != null">
+        regist_login_count_day = #{registLoginCountDay,jdbcType=INTEGER},
+      </if>
+      <if test="uvSumDay != null">
+        uv_sum_day = #{uvSumDay,jdbcType=INTEGER},
+      </if>
+      <if test="moneySum != null">
+        money_sum = #{moneySum,jdbcType=DECIMAL},
+      </if>
+      <if test="zcMoney != null">
+        zc_money = #{zcMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="jsPrice != null">
+        js_price = #{jsPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="threshold != null">
+        threshold = #{threshold,jdbcType=INTEGER},
+      </if>
+      <if test="deductionRate != null">
+        deduction_rate = #{deductionRate,jdbcType=DECIMAL},
+      </if>
+      <if test="registCount != null">
+        regist_count = #{registCount,jdbcType=INTEGER},
+      </if>
+      <if test="registDeductionCount != null">
+        regist_deduction_count = #{registDeductionCount,jdbcType=INTEGER},
+      </if>
+      <if test="roi != null">
+        roi = #{roi,jdbcType=DECIMAL},
+      </if>
+      <if test="channelPrice != null">
+        channel_price = #{channelPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.daichao.bean.channel.DcChannelStatisticsHistory">
+    update dc_channel_statistics_history
+    set code = #{code,jdbcType=VARCHAR},
+      code_name = #{codeName,jdbcType=VARCHAR},
+      channel_uv_count = #{channelUvCount,jdbcType=INTEGER},
+      regist_count_day = #{registCountDay,jdbcType=INTEGER},
+      login_count_day = #{loginCountDay,jdbcType=INTEGER},
+      regist_login_count_day = #{registLoginCountDay,jdbcType=INTEGER},
+      uv_sum_day = #{uvSumDay,jdbcType=INTEGER},
+      money_sum = #{moneySum,jdbcType=DECIMAL},
+      zc_money = #{zcMoney,jdbcType=DECIMAL},
+      js_price = #{jsPrice,jdbcType=DECIMAL},
+      threshold = #{threshold,jdbcType=INTEGER},
+      deduction_rate = #{deductionRate,jdbcType=DECIMAL},
+      regist_count = #{registCount,jdbcType=INTEGER},
+      regist_deduction_count = #{registDeductionCount,jdbcType=INTEGER},
+      roi = #{roi,jdbcType=DECIMAL},
+      channel_price = #{channelPrice,jdbcType=DECIMAL},
+      create_time = #{createTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="statisticsHistory" parameterType="map" resultType="com.daichao.bean.channel.DcChannelStatisticsHistory">
+     select * from dc_channel_statistics_history where 1=1
+     <if test="code!=null">
+       and binary code like concat('%', #{code},'%')
+     </if>
+     <if test="startTime!=null">
+        and create_time >=#{startTime}
+     </if>
+     <if test="endTime!=null">
+        and create_time &lt;=#{endTime}
+     </if>
+     order by regist_count_day desc
+  </select>
+  <select id="channelStatistics" parameterType="map" resultType="com.daichao.bean.channel.DcChannelStatisticsHistory">
+     select sum(channel_uv_count) as channelUvCount,sum(regist_count_day) as registCountDay,sum(regist_login_count_day) as registLoginCountDay,sum(money_sum) as moneySum,sum(zc_money) as zcMoney,sum(regist_deduction_count) as registDeductionCount,sum(uv_sum_day) uvSumDay from dc_channel_statistics_history where 1=1
+     <if test="code!=null">
+       and binary code like concat('%', #{code},'%')
+     </if>
+     <if test="startTime!=null">
+        and create_time >=#{startTime}
+     </if>
+     <if test="endTime!=null">
+        and create_time &lt;=#{endTime}
+     </if>
+  </select>
+</mapper>

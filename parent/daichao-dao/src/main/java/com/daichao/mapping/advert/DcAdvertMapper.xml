@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.daichao.dao.advert.DcAdvertMapper">
+  <resultMap id="BaseResultMap" type="com.daichao.bean.advert.DcAdvert">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="product_id" jdbcType="INTEGER" property="productId" />
+    <result column="location" jdbcType="INTEGER" property="location" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="create_id" jdbcType="INTEGER" property="createId" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_id" jdbcType="INTEGER" property="updateId" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, product_id, location, status, create_id, create_time, update_id, update_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from dc_advert
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from dc_advert
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.daichao.bean.advert.DcAdvert">
+    insert into dc_advert (id, product_id, location, 
+      status, create_id, create_time, 
+      update_id, update_time)
+    values (#{id,jdbcType=INTEGER}, #{productId,jdbcType=INTEGER}, #{location,jdbcType=INTEGER}, 
+      #{status,jdbcType=INTEGER}, #{createId,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updateId,jdbcType=INTEGER}, #{updateTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.daichao.bean.advert.DcAdvert">
+    insert into dc_advert
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="productId != null">
+        product_id,
+      </if>
+      <if test="location != null">
+        location,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="createId != null">
+        create_id,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateId != null">
+        update_id,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="productId != null">
+        #{productId,jdbcType=INTEGER},
+      </if>
+      <if test="location != null">
+        #{location,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="createId != null">
+        #{createId,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateId != null">
+        #{updateId,jdbcType=INTEGER},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.daichao.bean.advert.DcAdvert">
+    update dc_advert
+    <set>
+      <if test="productId != null">
+        product_id = #{productId,jdbcType=INTEGER},
+      </if>
+      <if test="location != null">
+        location = #{location,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="createId != null">
+        create_id = #{createId,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateId != null">
+        update_id = #{updateId,jdbcType=INTEGER},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.daichao.bean.advert.DcAdvert">
+    update dc_advert
+    set product_id = #{productId,jdbcType=INTEGER},
+      location = #{location,jdbcType=INTEGER},
+      status = #{status,jdbcType=INTEGER},
+      create_id = #{createId,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_id = #{updateId,jdbcType=INTEGER},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="queryAdvertList" parameterType="map" resultType="com.daichao.bean.advert.DcAdvert">
+    select a.*,b.name as productName from dc_advert a left join dc_third_product b on a.product_id=b.id where a.status=1 and b.status=1
+    <if test="location!=null">
+      and a.location=#{location}
+    </if>
+    <if test="productId!=null">
+      and a.product_id=#{productId}
+    </if>
+  </select>
+  <select id="queryAdvertByStatusAndLocation" parameterType="java.lang.Integer" resultType="com.daichao.bean.advert.DcAdvert">
+     select * from dc_advert where status=1 and location=#{location}
+  </select>
+  <select id="queryAdvertByProductId" parameterType="java.lang.Integer" resultType="com.daichao.bean.advert.DcAdvert">
+     select * from dc_advert where status=1 and product_id=#{productId}
+  </select>
+</mapper>

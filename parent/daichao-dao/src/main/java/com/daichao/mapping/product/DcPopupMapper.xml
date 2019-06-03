@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.daichao.dao.product.DcPopupMapper">
+  <resultMap id="BaseResultMap" type="com.daichao.bean.product.DcPopup">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="start_time" jdbcType="TIMESTAMP" property="startTime" />
+    <result column="end_time" jdbcType="TIMESTAMP" property="endTime" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="pic_img" jdbcType="VARCHAR" property="picImg" />
+    <result column="type" jdbcType="INTEGER" property="type" />
+    <result column="product_url" jdbcType="VARCHAR" property="productUrl" />
+    <result column="product_id" jdbcType="INTEGER" property="productId" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, name, start_time, end_time, status, pic_img, type, product_url, product_id
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from dc_popup
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from dc_popup
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.daichao.bean.product.DcPopup">
+    insert into dc_popup (id, name, start_time, 
+      end_time, status, pic_img, 
+      type, product_url, product_id
+      )
+    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{startTime,jdbcType=TIMESTAMP}, 
+      #{endTime,jdbcType=TIMESTAMP}, #{status,jdbcType=INTEGER}, #{picImg,jdbcType=VARCHAR}, 
+      #{type,jdbcType=INTEGER}, #{productUrl,jdbcType=VARCHAR}, #{productId,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.daichao.bean.product.DcPopup">
+    insert into dc_popup
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="startTime != null">
+        start_time,
+      </if>
+      <if test="endTime != null">
+        end_time,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="picImg != null">
+        pic_img,
+      </if>
+      <if test="type != null">
+        type,
+      </if>
+      <if test="productUrl != null">
+        product_url,
+      </if>
+      <if test="productId != null">
+        product_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="startTime != null">
+        #{startTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endTime != null">
+        #{endTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="picImg != null">
+        #{picImg,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=INTEGER},
+      </if>
+      <if test="productUrl != null">
+        #{productUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="productId != null">
+        #{productId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.daichao.bean.product.DcPopup">
+    update dc_popup
+    <set>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="startTime != null">
+        start_time = #{startTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endTime != null">
+        end_time = #{endTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="picImg != null">
+        pic_img = #{picImg,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        type = #{type,jdbcType=INTEGER},
+      </if>
+      <if test="productUrl != null">
+        product_url = #{productUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="productId != null">
+        product_id = #{productId,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.daichao.bean.product.DcPopup">
+    update dc_popup
+    set name = #{name,jdbcType=VARCHAR},
+      start_time = #{startTime,jdbcType=TIMESTAMP},
+      end_time = #{endTime,jdbcType=TIMESTAMP},
+      status = #{status,jdbcType=INTEGER},
+      pic_img = #{picImg,jdbcType=VARCHAR},
+      type = #{type,jdbcType=INTEGER},
+      product_url = #{productUrl,jdbcType=VARCHAR},
+      product_id = #{productId,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="queryPopupList" parameterType="map" resultType="com.daichao.bean.product.DcPopup">
+     select * from dc_popup where 1=1
+     <if test="name!=null">
+        and binary name like concat('%', #{name},'%')
+     </if>
+     <if test="status!=null">
+        and status=#{status}
+     </if>
+     <if test="productUrl!=null">
+        and product_url=#{productUrl}
+     </if>
+     <if test="type!=null">
+        and type=#{type}
+     </if>
+  </select>
+  <select id="selectPopup" resultType="com.daichao.bean.product.DcPopup">
+    select * from dc_popup where status=1 and start_time <![CDATA[ < ]]> NOW() and end_time <![CDATA[ > ]]> NOW()
+    limit 0,1
+  </select>
+</mapper>

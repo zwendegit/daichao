@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.daichao.dao.app.DcAppVersionMapper">
+  <resultMap id="BaseResultMap" type="com.daichao.bean.app.DcAppVersion">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="versionCode" jdbcType="INTEGER" property="versioncode" />
+    <result column="versionName" jdbcType="VARCHAR" property="versionname" />
+    <result column="forceCheck" jdbcType="INTEGER" property="forcecheck" />
+    <result column="deviceType" jdbcType="VARCHAR" property="devicetype" />
+    <result column="appId" jdbcType="VARCHAR" property="appid" />
+    <result column="packageType" jdbcType="VARCHAR" property="packagetype" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="download_url" jdbcType="VARCHAR" property="downloadUrl" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, versionCode, versionName, forceCheck, deviceType, appId, packageType, remark, 
+    status, download_url
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from dc_app_version
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from dc_app_version
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.daichao.bean.app.DcAppVersion">
+    insert into dc_app_version (id, versionCode, versionName, 
+      forceCheck, deviceType, appId, 
+      packageType, remark, status, 
+      download_url)
+    values (#{id,jdbcType=INTEGER}, #{versioncode,jdbcType=INTEGER}, #{versionname,jdbcType=VARCHAR}, 
+      #{forcecheck,jdbcType=INTEGER}, #{devicetype,jdbcType=VARCHAR}, #{appid,jdbcType=VARCHAR}, 
+      #{packagetype,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, 
+      #{downloadUrl,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.daichao.bean.app.DcAppVersion">
+    insert into dc_app_version
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="versioncode != null">
+        versionCode,
+      </if>
+      <if test="versionname != null">
+        versionName,
+      </if>
+      <if test="forcecheck != null">
+        forceCheck,
+      </if>
+      <if test="devicetype != null">
+        deviceType,
+      </if>
+      <if test="appid != null">
+        appId,
+      </if>
+      <if test="packagetype != null">
+        packageType,
+      </if>
+      <if test="remark != null">
+        remark,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="downloadUrl != null">
+        download_url,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="versioncode != null">
+        #{versioncode,jdbcType=INTEGER},
+      </if>
+      <if test="versionname != null">
+        #{versionname,jdbcType=VARCHAR},
+      </if>
+      <if test="forcecheck != null">
+        #{forcecheck,jdbcType=INTEGER},
+      </if>
+      <if test="devicetype != null">
+        #{devicetype,jdbcType=VARCHAR},
+      </if>
+      <if test="appid != null">
+        #{appid,jdbcType=VARCHAR},
+      </if>
+      <if test="packagetype != null">
+        #{packagetype,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="downloadUrl != null">
+        #{downloadUrl,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.daichao.bean.app.DcAppVersion">
+    update dc_app_version
+    <set>
+      <if test="versioncode != null">
+        versionCode = #{versioncode,jdbcType=INTEGER},
+      </if>
+      <if test="versionname != null">
+        versionName = #{versionname,jdbcType=VARCHAR},
+      </if>
+      <if test="forcecheck != null">
+        forceCheck = #{forcecheck,jdbcType=INTEGER},
+      </if>
+      <if test="devicetype != null">
+        deviceType = #{devicetype,jdbcType=VARCHAR},
+      </if>
+      <if test="appid != null">
+        appId = #{appid,jdbcType=VARCHAR},
+      </if>
+      <if test="packagetype != null">
+        packageType = #{packagetype,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null">
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="downloadUrl != null">
+        download_url = #{downloadUrl,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.daichao.bean.app.DcAppVersion">
+    update dc_app_version
+    set versionCode = #{versioncode,jdbcType=INTEGER},
+      versionName = #{versionname,jdbcType=VARCHAR},
+      forceCheck = #{forcecheck,jdbcType=INTEGER},
+      deviceType = #{devicetype,jdbcType=VARCHAR},
+      appId = #{appid,jdbcType=VARCHAR},
+      packageType = #{packagetype,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR},
+      status = #{status,jdbcType=INTEGER},
+      download_url = #{downloadUrl,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="getVersion" parameterType="map" resultMap="BaseResultMap">
+    select * from dc_app_version where 1=1
+    <if test="deviceType!=null">
+      and binary deviceType = #{deviceType}
+    </if>
+    <if test="packageType!=null">
+      and binary packageType=#{packageType}
+    </if>
+  </select>
+  <select id="queryAppVersionList" parameterType="map" resultType="com.daichao.bean.app.DcAppVersion">
+     select * from dc_app_version where 1=1
+    <if test="deviceType!=null">
+      and binary deviceType = #{deviceType}
+    </if>
+    <if test="versionName!=null">
+      and binary versionName like concat('%', #{versionName},'%')
+    </if>
+  </select>
+</mapper>

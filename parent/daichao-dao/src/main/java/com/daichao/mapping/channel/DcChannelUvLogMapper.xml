@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.daichao.dao.channel.DcChannelUvLogMapper">
+  <resultMap id="BaseResultMap" type="com.daichao.bean.channel.DcChannelUvLog">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="channel_code" jdbcType="VARCHAR" property="channelCode" />
+    <result column="h5_device_id" jdbcType="VARCHAR" property="h5DeviceId" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, channel_code, h5_device_id, create_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from dc_channel_uv_log
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from dc_channel_uv_log
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.daichao.bean.channel.DcChannelUvLog">
+    insert into dc_channel_uv_log (id, channel_code, h5_device_id, 
+      create_time)
+    values (#{id,jdbcType=INTEGER}, #{channelCode,jdbcType=VARCHAR}, #{h5DeviceId,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.daichao.bean.channel.DcChannelUvLog">
+    insert into dc_channel_uv_log
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="channelCode != null">
+        channel_code,
+      </if>
+      <if test="h5DeviceId != null">
+        h5_device_id,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="channelCode != null">
+        #{channelCode,jdbcType=VARCHAR},
+      </if>
+      <if test="h5DeviceId != null">
+        #{h5DeviceId,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.daichao.bean.channel.DcChannelUvLog">
+    update dc_channel_uv_log
+    <set>
+      <if test="channelCode != null">
+        channel_code = #{channelCode,jdbcType=VARCHAR},
+      </if>
+      <if test="h5DeviceId != null">
+        h5_device_id = #{h5DeviceId,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.daichao.bean.channel.DcChannelUvLog">
+    update dc_channel_uv_log
+    set channel_code = #{channelCode,jdbcType=VARCHAR},
+      h5_device_id = #{h5DeviceId,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="queryCountByCodeAndCreateTime" parameterType="map" resultType="java.lang.Integer">
+    select count(1) from dc_channel_uv_log where 1=1
+    <if test="code!=null">
+       and binary channel_code=#{code}
+    </if>
+    <if test="startTime!=null">
+       and create_time>=#{startTime}
+    </if>
+    <if test="endTime!=null">
+       and create_time &lt;=#{endTime}
+    </if>
+  </select>
+    <select id="selectCountToday" resultType="java.lang.Integer">
+        select count(*) from dc_channel_uv_log where binary channel_code=#{channelCode} and h5_device_id=#{deviceId}
+        and DATE_FORMAT(create_time,'%Y-%m-%D')=DATE_FORMAT(CURDATE(),'%Y-%m-%D')
+    </select>
+</mapper>

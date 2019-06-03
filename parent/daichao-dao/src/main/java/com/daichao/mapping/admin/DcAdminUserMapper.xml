@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.daichao.dao.admin.DcAdminUserMapper">
+  <resultMap id="BaseResultMap" type="com.daichao.bean.admin.DcAdminUser">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="mobile" jdbcType="VARCHAR" property="mobile" />
+    <result column="username" jdbcType="VARCHAR" property="username" />
+    <result column="password" jdbcType="VARCHAR" property="password" />
+    <result column="access_token" jdbcType="VARCHAR" property="accessToken" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="last_login_time" jdbcType="TIMESTAMP" property="lastLoginTime" />
+    <result column="company" jdbcType="VARCHAR" property="company" />
+    <result column="type" jdbcType="INTEGER" property="type" />
+    <result column="product_id" jdbcType="INTEGER" property="productId" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, mobile, username, password, access_token, create_time, last_login_time, company, 
+    type, product_id, status
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from dc_admin_user
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from dc_admin_user
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.daichao.bean.admin.DcAdminUser">
+    insert into dc_admin_user (id, mobile, username, 
+      password, access_token, create_time, 
+      last_login_time, company, type, 
+      product_id, status)
+    values (#{id,jdbcType=INTEGER}, #{mobile,jdbcType=VARCHAR}, #{username,jdbcType=VARCHAR}, 
+      #{password,jdbcType=VARCHAR}, #{accessToken,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{lastLoginTime,jdbcType=TIMESTAMP}, #{company,jdbcType=VARCHAR}, #{type,jdbcType=INTEGER}, 
+      #{productId,jdbcType=INTEGER}, #{status,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.daichao.bean.admin.DcAdminUser"  useGeneratedKeys="true" keyProperty="id">
+    insert into dc_admin_user
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="mobile != null">
+        mobile,
+      </if>
+      <if test="username != null">
+        username,
+      </if>
+      <if test="password != null">
+        password,
+      </if>
+      <if test="accessToken != null">
+        access_token,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="lastLoginTime != null">
+        last_login_time,
+      </if>
+      <if test="company != null">
+        company,
+      </if>
+      <if test="type != null">
+        type,
+      </if>
+      <if test="productId != null">
+        product_id,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="mobile != null">
+        #{mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="username != null">
+        #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="accessToken != null">
+        #{accessToken,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastLoginTime != null">
+        #{lastLoginTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="company != null">
+        #{company,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=INTEGER},
+      </if>
+      <if test="productId != null">
+        #{productId,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.daichao.bean.admin.DcAdminUser">
+    update dc_admin_user
+    <set>
+      <if test="mobile != null">
+        mobile = #{mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="username != null">
+        username = #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        password = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="accessToken != null">
+        access_token = #{accessToken,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastLoginTime != null">
+        last_login_time = #{lastLoginTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="company != null">
+        company = #{company,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        type = #{type,jdbcType=INTEGER},
+      </if>
+      <if test="productId != null">
+        product_id = #{productId,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.daichao.bean.admin.DcAdminUser">
+    update dc_admin_user
+    set mobile = #{mobile,jdbcType=VARCHAR},
+      username = #{username,jdbcType=VARCHAR},
+      password = #{password,jdbcType=VARCHAR},
+      access_token = #{accessToken,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      last_login_time = #{lastLoginTime,jdbcType=TIMESTAMP},
+      company = #{company,jdbcType=VARCHAR},
+      type = #{type,jdbcType=INTEGER},
+      product_id = #{productId,jdbcType=INTEGER},
+      status = #{status,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="queryAdminUserList" parameterType="map" resultMap="BaseResultMap">
+    select * from dc_admin_user where 1=1
+    <if test="mobile!=null">
+      and mobile like concat('%', #{mobile},'%')
+    </if>
+    <if test="userName!=null">
+      and binary username like concat('%', #{userName},'%')
+    </if>
+    <if test="company!=null">
+      and binary company like concat('%', #{company},'%')
+    </if>
+    <if test="userType!=null">
+      and type=#{userType}
+    </if>
+  </select>
+  <select id="queryAdminUserByUserNameOrMobile" parameterType="map" resultType="com.daichao.bean.admin.DcAdminUser">
+    select * from dc_admin_user where binary password=#{password} and status=1 and mobile=#{name} 
+  </select>
+  <select id="queryAdminUserByAccessToken" parameterType="String" resultType="com.daichao.bean.admin.DcAdminUser">
+    select * from dc_admin_user where binary access_token=#{access_token} and status=1
+  </select>
+</mapper>

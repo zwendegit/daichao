@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.daichao.dao.user.DcUserMapper">
+  <resultMap id="BaseResultMap" type="com.daichao.bean.user.DcUser">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="username" jdbcType="VARCHAR" property="username" />
+    <result column="phone" jdbcType="VARCHAR" property="phone" />
+    <result column="password" jdbcType="VARCHAR" property="password" />
+    <result column="access_token" jdbcType="VARCHAR" property="accessToken" />
+    <result column="pic_img" jdbcType="VARCHAR" property="picImg" />
+    <result column="regist_time" jdbcType="TIMESTAMP" property="registTime" />
+    <result column="regist_channel" jdbcType="VARCHAR" property="registChannel" />
+    <result column="first_login_time" jdbcType="TIMESTAMP" property="firstLoginTime" />
+    <result column="first_login_channel" jdbcType="VARCHAR" property="firstLoginChannel" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, username, phone, password, access_token, pic_img, regist_time, regist_channel, 
+    first_login_time, first_login_channel, status
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from dc_user
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectByPhone" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from dc_user
+    where phone = #{phone,jdbcType=VARCHAR}
+  </select>
+  <select id="selectByToken" resultType="com.daichao.bean.user.DcUser">
+    select
+    <include refid="Base_Column_List" />
+    from dc_user
+    where access_token = #{token,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from dc_user
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.daichao.bean.user.DcUser">
+    insert into dc_user (id, username, phone, 
+      password, access_token, pic_img, 
+      regist_time, regist_channel, first_login_time, 
+      first_login_channel, status)
+    values (#{id,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, 
+      #{password,jdbcType=VARCHAR}, #{accessToken,jdbcType=VARCHAR}, #{picImg,jdbcType=VARCHAR}, 
+      #{registTime,jdbcType=TIMESTAMP}, #{registChannel,jdbcType=VARCHAR}, #{firstLoginTime,jdbcType=TIMESTAMP}, 
+      #{firstLoginChannel,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.daichao.bean.user.DcUser" useGeneratedKeys="true" keyProperty="id">
+    insert into dc_user
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="username != null">
+        username,
+      </if>
+      <if test="phone != null">
+        phone,
+      </if>
+      <if test="password != null">
+        password,
+      </if>
+      <if test="accessToken != null">
+        access_token,
+      </if>
+      <if test="picImg != null">
+        pic_img,
+      </if>
+      <if test="registTime != null">
+        regist_time,
+      </if>
+      <if test="registChannel != null">
+        regist_channel,
+      </if>
+      <if test="firstLoginTime != null">
+        first_login_time,
+      </if>
+      <if test="firstLoginChannel != null">
+        first_login_channel,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="username != null">
+        #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null">
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="accessToken != null">
+        #{accessToken,jdbcType=VARCHAR},
+      </if>
+      <if test="picImg != null">
+        #{picImg,jdbcType=VARCHAR},
+      </if>
+      <if test="registTime != null">
+        #{registTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="registChannel != null">
+        #{registChannel,jdbcType=VARCHAR},
+      </if>
+      <if test="firstLoginTime != null">
+        #{firstLoginTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="firstLoginChannel != null">
+        #{firstLoginChannel,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.daichao.bean.user.DcUser">
+    update dc_user
+    <set>
+      <if test="username != null">
+        username = #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null">
+        phone = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        password = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="accessToken != null">
+        access_token = #{accessToken,jdbcType=VARCHAR},
+      </if>
+      <if test="picImg != null">
+        pic_img = #{picImg,jdbcType=VARCHAR},
+      </if>
+      <if test="registTime != null">
+        regist_time = #{registTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="registChannel != null">
+        regist_channel = #{registChannel,jdbcType=VARCHAR},
+      </if>
+      <if test="firstLoginTime != null">
+        first_login_time = #{firstLoginTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="firstLoginChannel != null">
+        first_login_channel = #{firstLoginChannel,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.daichao.bean.user.DcUser">
+    update dc_user
+    set username = #{username,jdbcType=VARCHAR},
+      phone = #{phone,jdbcType=VARCHAR},
+      password = #{password,jdbcType=VARCHAR},
+      access_token = #{accessToken,jdbcType=VARCHAR},
+      pic_img = #{picImg,jdbcType=VARCHAR},
+      regist_time = #{registTime,jdbcType=TIMESTAMP},
+      regist_channel = #{registChannel,jdbcType=VARCHAR},
+      first_login_time = #{firstLoginTime,jdbcType=TIMESTAMP},
+      first_login_channel = #{firstLoginChannel,jdbcType=VARCHAR},
+      status = #{status,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectCountByRegistTime" parameterType="map" resultType="java.lang.Integer">
+     select count(1) from dc_user where binary regist_channel=#{code} and regist_time>=#{startTime} and regist_time &lt;=#{endTime}
+  </select>
+  <select id="selectCountByFirstLoginTime" parameterType="map" resultType="java.lang.Integer">
+     select count(1) from dc_user where binary regist_channel=#{code} and first_login_time>=#{startTime} and first_login_time &lt;=#{endTime}
+  </select>
+  <select id="selectCountByRegistFirstLoginTime" parameterType="map" resultType="java.lang.Integer">
+     select count(1) from dc_user where binary regist_channel=#{code} and first_login_time>=#{startTime} and first_login_time &lt;=#{endTime} and regist_time>=#{startTime} and regist_time &lt;=#{endTime}
+  </select>
+  <select id="selectChannelRegistToday" resultType="java.lang.Integer">
+    select count(1) from dc_user where binary regist_channel=#{channel} and DATE_FORMAT(regist_time,'%Y-%m-%D')=DATE_FORMAT(CURDATE(),'%Y-%m-%D')
+  </select>
+  <select id="userList" parameterType="map" resultType="com.daichao.bean.user.DcUser">
+    select  a.*,b.`name` as registChannelName from dc_user a LEFT JOIN dc_channel b on a.regist_channel=b.`code` where 1=1
+    <if test="mobile!=null">
+      and binary a.phone like concat('%', #{mobile},'%')
+    </if>
+    <if test="registChannel!=null">
+      and binary a.regist_channel like concat('%', #{registChannel},'%') 
+    </if>
+    <if test="loginChannel!=null">
+      and binary a.first_login_channel like concat('%', #{loginChannel},'%') 
+    </if>
+    <if test="type==1">
+        <if test="startTime!=null">
+           and a.regist_time>=#{startTime}
+        </if>
+        <if test="endTime!=null">
+           and a.regist_time &lt;=#{endTime}
+        </if>
+    </if>
+    <if test="type==2">
+        <if test="startTime!=null">
+           and a.first_login_time>=#{startTime}
+        </if>
+        <if test="endTime!=null">
+           and a.first_login_time &lt;=#{endTime}
+        </if>
+    </if>
+    order by a.regist_time desc
+  </select>
+</mapper>

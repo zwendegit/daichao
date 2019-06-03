@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.daichao.dao.admin.DcAdminMenuMapper">
+  <resultMap id="BaseResultMap" type="com.daichao.bean.admin.DcAdminMenu">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="parent_id" jdbcType="INTEGER" property="parentId" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="menu_url" jdbcType="VARCHAR" property="menuUrl" />
+    <result column="url" jdbcType="VARCHAR" property="url" />
+    <result column="type" jdbcType="INTEGER" property="type" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, parent_id, name, menu_url, url, type, status, remark
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from dc_admin_menu
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from dc_admin_menu
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.daichao.bean.admin.DcAdminMenu">
+    insert into dc_admin_menu (id, parent_id, name, 
+      menu_url, url, type, 
+      status, remark)
+    values (#{id,jdbcType=INTEGER}, #{parentId,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, 
+      #{menuUrl,jdbcType=VARCHAR}, #{url,jdbcType=VARCHAR}, #{type,jdbcType=INTEGER}, 
+      #{status,jdbcType=INTEGER}, #{remark,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.daichao.bean.admin.DcAdminMenu">
+    insert into dc_admin_menu
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="parentId != null">
+        parent_id,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="menuUrl != null">
+        menu_url,
+      </if>
+      <if test="url != null">
+        url,
+      </if>
+      <if test="type != null">
+        type,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="remark != null">
+        remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="parentId != null">
+        #{parentId,jdbcType=INTEGER},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="menuUrl != null">
+        #{menuUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="url != null">
+        #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.daichao.bean.admin.DcAdminMenu">
+    update dc_admin_menu
+    <set>
+      <if test="parentId != null">
+        parent_id = #{parentId,jdbcType=INTEGER},
+      </if>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="menuUrl != null">
+        menu_url = #{menuUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="url != null">
+        url = #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        type = #{type,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="remark != null">
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.daichao.bean.admin.DcAdminMenu">
+    update dc_admin_menu
+    set parent_id = #{parentId,jdbcType=INTEGER},
+      name = #{name,jdbcType=VARCHAR},
+      menu_url = #{menuUrl,jdbcType=VARCHAR},
+      url = #{url,jdbcType=VARCHAR},
+      type = #{type,jdbcType=INTEGER},
+      status = #{status,jdbcType=INTEGER},
+      remark = #{remark,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="queryAdminMenuList" resultType="com.daichao.bean.admin.DcAdminMenu">
+    select * from dc_admin_menu where status=1
+  </select>
+  <select id="queryMenuListByUserId" parameterType="java.lang.Integer" resultType="com.daichao.bean.admin.DcAdminMenu">
+    select a.* from dc_admin_menu a left join dc_admin_role_menu b on a.id=b.menu_id 
+    left join dc_admin_role c on c.id=b.role_id left join dc_admin_user_role d on d.role_id=b.role_id where a.status=1 and c.status=1
+    <if test="userId!=1">
+       and d.user_id=#{userId} 
+    </if>
+    GROUP BY a.id;
+  </select>
+  <select id="queryCountByUrl" parameterType="String" resultType="java.lang.Integer">
+     select count(1) from dc_admin_menu where url=#{url}
+  </select>
+  <select id="queryAdminMenuListByRoleId" parameterType="java.lang.Integer" resultType="com.daichao.bean.admin.DcAdminMenu">
+     select a.* from dc_admin_menu a,dc_admin_role_menu b where a.id=b.menu_id and b.role_id=#{roleId} and a.status=1
+  </select>
+</mapper>

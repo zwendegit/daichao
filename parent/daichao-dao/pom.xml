@@ -1,0 +1,46 @@
+<?xml version="1.0"?>
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>com.daichao</groupId>
+    <artifactId>parent</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+  </parent>
+  <groupId>com.daichao-dao</groupId>
+  <artifactId>daichao-dao</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  <packaging>jar</packaging>
+  <name>daichao-dao Maven Webapp</name>
+  <url>http://maven.apache.org</url>
+  <dependencies>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>3.8.1</version>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
+  <build>
+    <finalName>daichao-dao</finalName>
+    <pluginManagement>
+        <plugins>
+            <plugin>  
+                <groupId>org.apache.maven.plugins</groupId>  
+                <artifactId>maven-war-plugin</artifactId>  
+                <configuration>  
+                    <failOnMissingWebXml>false</failOnMissingWebXml>  
+                </configuration>  
+            </plugin>
+            <plugin>  
+            <groupId>org.apache.maven.plugins</groupId>  
+            <artifactId>maven-compiler-plugin</artifactId>  
+                <configuration>  
+                       <source>1.8</source>  
+                    <target>1.8</target>  
+                </configuration>  
+        </plugin> 
+        </plugins>
+    </pluginManagement>
+  </build>
+</project>

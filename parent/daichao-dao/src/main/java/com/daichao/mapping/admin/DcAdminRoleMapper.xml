@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.daichao.dao.admin.DcAdminRoleMapper">
+  <resultMap id="BaseResultMap" type="com.daichao.bean.admin.DcAdminRole">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, name, status, remark
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from dc_admin_role
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from dc_admin_role
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.daichao.bean.admin.DcAdminRole">
+    insert into dc_admin_role (id, name, status, 
+      remark)
+    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, 
+      #{remark,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.daichao.bean.admin.DcAdminRole">
+    insert into dc_admin_role
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="remark != null">
+        remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.daichao.bean.admin.DcAdminRole">
+    update dc_admin_role
+    <set>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="remark != null">
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.daichao.bean.admin.DcAdminRole">
+    update dc_admin_role
+    set name = #{name,jdbcType=VARCHAR},
+      status = #{status,jdbcType=INTEGER},
+      remark = #{remark,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="queryAdminUserByUserId" parameterType="java.lang.Integer" resultType="com.daichao.bean.admin.DcAdminRole">
+     select  a.*,b.user_id as userId from dc_admin_role a left join dc_admin_user_role  b on a.id=b.role_id and b.user_id=#{userId}
+  </select>
+  <select id="queryAdminRoleList" parameterType="map" resultMap="BaseResultMap">
+     select * from dc_admin_role where 1=1
+     <if test="name!=null">
+       and binary name like concat('%', #{name},'%')
+     </if>
+     <if test="status!=null">
+       and status=#{status}
+     </if>
+  </select>
+</mapper>

@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.daichao.dao.channel.DcChannelMapper">
+  <resultMap id="BaseResultMap" type="com.daichao.bean.channel.DcChannel">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="code" jdbcType="VARCHAR" property="code" />
+    <result column="type" jdbcType="INTEGER" property="type" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="url" jdbcType="VARCHAR" property="url" />
+    <result column="price" jdbcType="DECIMAL" property="price" />
+    <result column="threshold" jdbcType="INTEGER" property="threshold" />
+    <result column="url_status" jdbcType="INTEGER" property="urlStatus" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, name, code, type, status, url, price, threshold, url_status
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from dc_channel
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from dc_channel
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.daichao.bean.channel.DcChannel">
+    insert into dc_channel (id, name, code, 
+      type, status, url, 
+      price, threshold, url_status
+      )
+    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{code,jdbcType=VARCHAR}, 
+      #{type,jdbcType=INTEGER}, #{status,jdbcType=INTEGER}, #{url,jdbcType=VARCHAR}, 
+      #{price,jdbcType=DECIMAL}, #{threshold,jdbcType=INTEGER}, #{urlStatus,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.daichao.bean.channel.DcChannel" useGeneratedKeys="true" keyProperty="id">
+    insert into dc_channel
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="code != null">
+        code,
+      </if>
+      <if test="type != null">
+        type,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="url != null">
+        url,
+      </if>
+      <if test="price != null">
+        price,
+      </if>
+      <if test="threshold != null">
+        threshold,
+      </if>
+      <if test="urlStatus != null">
+        url_status,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="code != null">
+        #{code,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="url != null">
+        #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null">
+        #{price,jdbcType=DECIMAL},
+      </if>
+      <if test="threshold != null">
+        #{threshold,jdbcType=INTEGER},
+      </if>
+      <if test="urlStatus != null">
+        #{urlStatus,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.daichao.bean.channel.DcChannel">
+    update dc_channel
+    <set>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="code != null">
+        code = #{code,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        type = #{type,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="url != null">
+        url = #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null">
+        price = #{price,jdbcType=DECIMAL},
+      </if>
+      <if test="threshold != null">
+        threshold = #{threshold,jdbcType=INTEGER},
+      </if>
+      <if test="urlStatus != null">
+        url_status = #{urlStatus,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.daichao.bean.channel.DcChannel">
+    update dc_channel
+    set name = #{name,jdbcType=VARCHAR},
+      code = #{code,jdbcType=VARCHAR},
+      type = #{type,jdbcType=INTEGER},
+      status = #{status,jdbcType=INTEGER},
+      url = #{url,jdbcType=VARCHAR},
+      price = #{price,jdbcType=DECIMAL},
+      threshold = #{threshold,jdbcType=INTEGER},
+      url_status = #{urlStatus,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="queryChannelList" parameterType="map" resultType="com.daichao.bean.channel.DcChannel">
+     select a.*,b.deduction_rate as deductionRate from dc_channel a LEFT JOIN dc_product_config b on b.channel_id=a.id  where 1=1
+     <if test="name!=null">
+       and binary a.name like concat('%', #{name},'%')
+     </if>
+     <if test="code!=null">
+       and binary a.code like concat('%', #{code},'%')
+     </if>
+     <if test="type!=null"> 
+       and a.type=#{type}
+     </if>
+     <if test="status!=null">
+       and a.status=#{status}
+     </if>
+  </select>
+    <select id="selectByCode" resultType="com.daichao.bean.channel.DcChannel">
+      select * from dc_channel where binary code=#{code}
+    </select>
+    <select id="queryChannelCodeList" resultType="String" parameterType="String">
+       select code from dc_channel  where 1=1
+       <if test="status!=null">
+         and  status=#{status}
+       </if>
+    </select>
+</mapper>

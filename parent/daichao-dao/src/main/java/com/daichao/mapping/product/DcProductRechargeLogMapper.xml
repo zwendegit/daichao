@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.daichao.dao.product.DcProductRechargeLogMapper">
+  <resultMap id="BaseResultMap" type="com.daichao.bean.product.DcProductRechargeLog">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="product_id" jdbcType="INTEGER" property="productId" />
+    <result column="total_amount" jdbcType="DECIMAL" property="totalAmount" />
+    <result column="recharge_amount" jdbcType="DECIMAL" property="rechargeAmount" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="create_id" jdbcType="INTEGER" property="createId" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, product_id, total_amount, recharge_amount, remark, create_id, create_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from dc_product_recharge_log
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from dc_product_recharge_log
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.daichao.bean.product.DcProductRechargeLog">
+    insert into dc_product_recharge_log (id, product_id, total_amount, 
+      recharge_amount, remark, create_id, 
+      create_time)
+    values (#{id,jdbcType=INTEGER}, #{productId,jdbcType=INTEGER}, #{totalAmount,jdbcType=DECIMAL}, 
+      #{rechargeAmount,jdbcType=DECIMAL}, #{remark,jdbcType=VARCHAR}, #{createId,jdbcType=INTEGER}, 
+      #{createTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.daichao.bean.product.DcProductRechargeLog">
+    insert into dc_product_recharge_log
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="productId != null">
+        product_id,
+      </if>
+      <if test="totalAmount != null">
+        total_amount,
+      </if>
+      <if test="rechargeAmount != null">
+        recharge_amount,
+      </if>
+      <if test="remark != null">
+        remark,
+      </if>
+      <if test="createId != null">
+        create_id,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="productId != null">
+        #{productId,jdbcType=INTEGER},
+      </if>
+      <if test="totalAmount != null">
+        #{totalAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="rechargeAmount != null">
+        #{rechargeAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="createId != null">
+        #{createId,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.daichao.bean.product.DcProductRechargeLog">
+    update dc_product_recharge_log
+    <set>
+      <if test="productId != null">
+        product_id = #{productId,jdbcType=INTEGER},
+      </if>
+      <if test="totalAmount != null">
+        total_amount = #{totalAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="rechargeAmount != null">
+        recharge_amount = #{rechargeAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="remark != null">
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="createId != null">
+        create_id = #{createId,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.daichao.bean.product.DcProductRechargeLog">
+    update dc_product_recharge_log
+    set product_id = #{productId,jdbcType=INTEGER},
+      total_amount = #{totalAmount,jdbcType=DECIMAL},
+      recharge_amount = #{rechargeAmount,jdbcType=DECIMAL},
+      remark = #{remark,jdbcType=VARCHAR},
+      create_id = #{createId,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="queryProductRechargeLogList" parameterType="String" resultType="com.daichao.bean.product.DcProductRechargeLog">
+    select a.*,b.name as productName from dc_product_recharge_log a left join dc_third_product b on a.product_id=b.id where 1=1
+    <if test="name!=null">
+       and binary b.name like concat('%', #{name},'%')
+    </if>
+    order by a.create_time desc
+  </select>
+</mapper>
